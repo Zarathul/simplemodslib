@@ -137,7 +137,7 @@ public final class FluidHelper
 	 * @return
 	 * A {@link FluidStack} representing the transferred fluid.
 	 */
-	public static FluidStack transfer(IFluidHandler source, IFluidHandler destination, int amount)
+	public static FluidStack transfer(IFluidHandler source, IFluidHandler destination, long amount)
 	{
 		if (amount <= 0 || source == null || destination == null) return FluidStack.empty();
 
@@ -520,7 +520,7 @@ public final class FluidHelper
 		FluidStack handlerFluid = handler.getFluid();
 		IFluidContainerItem heldItem = (IFluidContainerItem)stack.getItem();
 
-		int itemFillAmount = heldItem.fill(stack, handler.getFluid().copy());
+		long itemFillAmount = heldItem.fill(stack, handler.getFluid().copy());
 		if (itemFillAmount > 0)
 		{
 			FluidStack fillFluid = new FluidStack(handlerFluid.getFluid(), itemFillAmount);
@@ -539,7 +539,7 @@ public final class FluidHelper
 		FluidStack handlerFluid = handler.getFluid();
 		IFluidContainerItem heldItem = (IFluidContainerItem)stack.getItem();
 
-		int remainingHandlerCapacity = handler.getCapacity() - handlerFluid.getAmount();
+		long remainingHandlerCapacity = handler.getCapacity() - handlerFluid.getAmount();
 		// If the handler is empty, it means it can accept any fluid type. Use the fluid type of the container in that case.
 		FluidStack drainableFluid = (handlerFluid.isEmpty()) ? FluidStack.getFluid(stack) : handlerFluid.copy();
 		drainableFluid.setAmount(remainingHandlerCapacity);

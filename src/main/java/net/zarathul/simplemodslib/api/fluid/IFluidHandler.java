@@ -25,7 +25,7 @@ public interface IFluidHandler
 	 * @return
 	 * A value of {@code 0} or greater.
 	 */
-	int getCapacity();
+	long getCapacity();
 
 	/**
 	 * Get the remaining capacity.
@@ -34,7 +34,7 @@ public interface IFluidHandler
 	 * A value of {@code 0} or greater, and less or equal to {@code getCapacity()}.
 	 */
 	default
-	int getRemainingCapacity()
+	long getRemainingCapacity()
 	{
 		return getCapacity() - getFluid().getAmount();
 	}
@@ -76,7 +76,7 @@ public interface IFluidHandler
 	 * {@code 0} on failure.
 	 */
 	default
-	int fill(FluidStack fillFluid)
+	long fill(FluidStack fillFluid)
 	{
 		if (fillFluid.isEmpty()) return 0;
 
@@ -91,7 +91,7 @@ public interface IFluidHandler
 
 		if (!fluid.isSameFluidSameComponents(fillFluid)) return 0;
 
-		int fillAmount = Math.min(getCapacity() - fluid.getAmount(), fillFluid.getAmount());
+		long fillAmount = Math.min(getCapacity() - fluid.getAmount(), fillFluid.getAmount());
 
 		if (fillAmount > 0)
 		{
